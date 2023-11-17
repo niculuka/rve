@@ -16,6 +16,7 @@ import android.widget.Toast;
 public class PlayerActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     LinearLayout home, player, radio, settings;
+    MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,39 +74,40 @@ public class PlayerActivity extends AppCompatActivity {
         activity.finish();
     }
 
-//    public void play(View view) {
-//        if (mediaPlayer == null) {
-//            mediaPlayer = MediaPlayer.create(this, R.raw.sound1);
-//            Toast.makeText(this, "Play", Toast.LENGTH_SHORT).show();
-//            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//                @Override
-//                public void onCompletion(MediaPlayer mediaPlayer) {
-//                    stopPlayer();
-//                }
-//            });
-//        }
-//        mediaPlayer.start();
-//    }
-//
-//    public void pause(View view) {
-//        if (mediaPlayer != null) {
-//            mediaPlayer.pause();
-//            Toast.makeText(this, "Pause", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-//
-//    public void stop(View view) {
-//        stopPlayer();
-//    }
-//
-//    private void stopPlayer() {
-//        if (mediaPlayer != null) {
-//            mediaPlayer.release();
-//            mediaPlayer = null;
-//            Toast.makeText(this, "MediaPlayer released", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-//
+    // P L A Y E R =================================================================================
+    public void play(View view) {
+        if (mediaPlayer == null) {
+            mediaPlayer = MediaPlayer.create(this, R.raw.sound1);
+            Toast.makeText(this, "Play", Toast.LENGTH_SHORT).show();
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    stopPlayer();
+                }
+            });
+        }
+        mediaPlayer.start();
+    }
+
+    public void pause(View view) {
+        if (mediaPlayer != null) {
+            mediaPlayer.pause();
+            Toast.makeText(this, "Pause", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void stop(View view) {
+        stopPlayer();
+    }
+
+    private void stopPlayer() {
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+            Toast.makeText(this, "MediaPlayer released", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 //    @Override
 //    protected void onStop() {
 //        super.onStop();
