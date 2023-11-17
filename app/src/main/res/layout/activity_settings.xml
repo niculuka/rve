@@ -5,13 +5,13 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".SettingsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/colorWhite">
+        android:background="@color/colorWhite">>
 
         <include layout="@layout/toolbar" />
 
@@ -20,8 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:text="Home"
-            android:textSize="20dp" />
+            android:text="Settings"
+            android:textSize="20dp"/>
 
     </LinearLayout>
 
