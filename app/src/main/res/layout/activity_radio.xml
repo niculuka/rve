@@ -45,15 +45,15 @@
                 android:onClick="ces"
                 android:text="Vocea Evangheliei Sibiu" />
             <Button
+                android:id="@+id/zuId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="zu"
-                android:text="Radio Zu" />
+                android:onClick="zuOnClick"/>
             <Button
+                android:id="@+id/impulseId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="impuls"
-                android:text="Radio Impuls" />
+                android:onClick="impulseOnClick" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

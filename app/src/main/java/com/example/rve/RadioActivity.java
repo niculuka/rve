@@ -7,11 +7,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.app.Activity;
 import android.content.Intent;
 import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -19,13 +22,23 @@ import java.io.IOException;
 public class RadioActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     LinearLayout home, player, radio, settings;
+    TextView zu, impulse;
+    String radioZu = "Radio Zu";
+    String radioImpulse = "Radio Impuls";
+
+    String loading = ".......";
+    String playing =  " (now playing)";
+    boolean prepared = false;
+    boolean started = false;
+    boolean preparedZu = false;
+    boolean startedZu = false;
     MediaPlayer mediaPlayer;
-    String veb = "https://streamer.radio.co/sb94ce6fe2/listen";
-    String vec = "https://s23.myradiostream.com/:18366/listen.mp3";
-    String ves = "https://c13.radioboss.fm:18286/stream";
-    String zu = "https://live7digi.antenaplay.ro/radiozu/radiozu-48000.m3u8";
-    String impulse = "https://stream.radio-impuls.ro/stream2";
-    String sport = "https://livesptfm.com/SPTFM/Live/chunklist_w991511764.m3u8";
+    String vebUrl = "https://streamer.radio.co/sb94ce6fe2/listen";
+    String vecUrl = "https://s23.myradiostream.com/:18366/listen.mp3";
+    String vesUrl = "https://c13.radioboss.fm:18286/stream";
+    String zuUrl = "https://live7digi.antenaplay.ro/radiozu/radiozu-48000.m3u8";
+    String impulseUrl = "https://stream.radio-impuls.ro/stream2";
+    String sportUrl = "https://livesptfm.com/SPTFM/Live/chunklist_w991511764.m3u8";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +46,14 @@ public class RadioActivity extends AppCompatActivity {
         setContentView(R.layout.activity_radio);
 
         drawerLayout = findViewById(R.id.drawerLayout);
-
+        // -----------------------------------------
         home = findViewById(R.id.menuHome);
         player = findViewById(R.id.menuPlayer);
         radio = findViewById(R.id.menuRadio);
         settings = findViewById(R.id.menuSettings);
+        // -----------------------------------------
+        zu = findViewById(R.id.zuId);
+        impulse = findViewById(R.id.impulseId);
 
         findViewById(R.id.menuBurger).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +90,15 @@ public class RadioActivity extends AppCompatActivity {
                 changeActivity(RadioActivity.this, SettingsActivity.class);
             }
         });
+        impulse.setEnabled(false);
+        impulse.setText(radioImpulse + loading);
+
+        zu.setEnabled(false);
+        zu.setText(radioZu + loading);
+
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        new PlayTask().execute(impulseUrl, zuUrl);
     }
 
     public static void changeActivity(Activity activity, Class nextActivity) {
@@ -84,37 +109,41 @@ public class RadioActivity extends AppCompatActivity {
     }
 
     // R A D I O ===================================================================================
-    public void zu(View view) {
+    public void impulseOnClick(View view) {
+        if (prepared) {
+            if (started) {
+                started = false;
+                mediaPlayer.pause();
+                impulse.setText(radioImpulse);
+            } else {
+                started = true;
+                mediaPlayer.start();
+                impulse.setText(radioImpulse + playing);
+            }
+        }
+    }
 
-        mediaPlayer = new MediaPlayer();
+    private class PlayTask extends AsyncTask<String, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(String... strings) {
+            try {
+                mediaPlayer.setDataSource(strings[0]);
+                mediaPlayer.prepare();
+                prepared = true;
 
-        mediaPlayer.setAudioAttributes(
-                new AudioAttributes.Builder()
-                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                        .setUsage(AudioAttributes.USAGE_MEDIA)
-                        .build()
-        );
-
-        try {
-            mediaPlayer.setDataSource(impulse);
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-
-        } catch (
-                IOException e) {
-            throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            return prepared;
         }
 
-//            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//                @Override
-//                public void onCompletion(MediaPlayer mediaPlayer) {
-//                    stopPlayer();
-//                }
-//            });
-
-
-        Toast.makeText(this, "PlayRadio1", Toast.LENGTH_SHORT).show();
-
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            impulse.setEnabled(true);
+            impulse.setText(radioImpulse);
+            started = false;
+        }
     }
 
 }
