@@ -68,6 +68,5 @@ public class SettingsActivity extends AppCompatActivity {
         Intent intent = new Intent(activity, nextActivity);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
-        activity.finish();
     }
 }

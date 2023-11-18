@@ -29,21 +29,21 @@
                 android:scaleType="fitCenter"/>
 
             <Button
+                android:id="@+id/vebId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="stop"
-                android:text="Vocea Evangheliei bucuresti" />
+                android:onClick="vebOnClick"/>
             <Button
+                android:id="@+id/vecId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="vec"
-                android:text="Vocea Evangheliei Sibiu" />
+                android:onClick="vecOnClick" />
 
             <Button
+                android:id="@+id/vesId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="ces"
-                android:text="Vocea Evangheliei Sibiu" />
+                android:onClick="vesOnClick" />
             <Button
                 android:id="@+id/zuId"
                 android:layout_width="wrap_content"
@@ -55,10 +55,16 @@
                 android:layout_height="wrap_content"
                 android:onClick="impulseOnClick" />
             <Button
+                android:id="@+id/sportId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="sport"
-                android:text="Radio Sport" />
+                android:onClick="sportOnClick"/>
+            <Button
+                android:id="@+id/stopId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" - - - S T O P - - - "
+                android:onClick="stopOnClick"/>
 
         </LinearLayout>
 
@@ -73,52 +79,5 @@
         <include layout="@layout/nav_drawer" />
 
     </RelativeLayout>
-
-<!--    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--        xmlns:tools="http://schemas.android.com/tools"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:background="@color/white"-->
-<!--        tools:context=".RadioFragment">-->
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:orientation="vertical">-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/logo"-->
-<!--                android:layout_width="200dp"-->
-<!--                android:layout_height="160dp"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:src="@drawable/logo" />-->
-
-<!--            <Button-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:onClick="europa"-->
-<!--                android:text="Europa FM" />-->
-
-<!--            <Button-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:onClick="digi"-->
-<!--                android:text="Digi FM" />-->
-
-<!--            <Button-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:onClick="zu"-->
-<!--                android:text="Radio ZU" />-->
-
-<!--        </LinearLayout>-->
-
-<!--    </FrameLayout>-->
-
-
 
 </androidx.drawerlayout.widget.DrawerLayout>

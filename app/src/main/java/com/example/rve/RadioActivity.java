@@ -22,9 +22,13 @@ import java.io.IOException;
 public class RadioActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     LinearLayout home, player, radio, settings;
-    TextView zu, impulse;
+    TextView veb, vec, ves, zu, impulse, sport;
+    String radioVeb = "Vocea Evangheliei Bucuresti";
+    String radioVec = "Vocea Evangheliei Cluj";
+    String radioVes = "Vocea Evangheliei Sibiu";
     String radioZu = "Radio Zu";
     String radioImpulse = "Radio Impuls";
+    String radioSport = "Radio Sport";
 
     String loading = ".......";
     String playing =  " (now playing)";
@@ -52,8 +56,12 @@ public class RadioActivity extends AppCompatActivity {
         radio = findViewById(R.id.menuRadio);
         settings = findViewById(R.id.menuSettings);
         // -----------------------------------------
+        veb = findViewById(R.id.vebId);
+        vec = findViewById(R.id.vecId);
+        ves = findViewById(R.id.vesId);
         zu = findViewById(R.id.zuId);
         impulse = findViewById(R.id.impulseId);
+        sport = findViewById(R.id.sportId);
 
         findViewById(R.id.menuBurger).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,60 +98,130 @@ public class RadioActivity extends AppCompatActivity {
                 changeActivity(RadioActivity.this, SettingsActivity.class);
             }
         });
-        impulse.setEnabled(false);
-        impulse.setText(radioImpulse + loading);
 
-        zu.setEnabled(false);
-        zu.setText(radioZu + loading);
+        veb.setText(radioVeb);
+        vec.setText(radioVec);
+        ves.setText(radioVes);
+        impulse.setText(radioImpulse);
+        zu.setText(radioZu);
+        sport.setText(radioSport);
 
-        mediaPlayer = new MediaPlayer();
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        new PlayTask().execute(impulseUrl, zuUrl);
+//        mediaPlayer = new MediaPlayer();
+//        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+//        new PlayTask().execute(impulseUrl, zuUrl);
     }
 
     public static void changeActivity(Activity activity, Class nextActivity) {
         Intent intent = new Intent(activity, nextActivity);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
-        activity.finish();
     }
 
     // R A D I O ===================================================================================
+    public void vebOnClick(View view) {
+        if (mediaPlayer != null) mediaPlayer.release();
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        try {
+            mediaPlayer.setDataSource(vebUrl);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void vecOnClick(View view) {
+        if (mediaPlayer != null) mediaPlayer.release();
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        try {
+            mediaPlayer.setDataSource(vecUrl);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void vesOnClick(View view) {
+        if (mediaPlayer != null) mediaPlayer.release();
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        try {
+            mediaPlayer.setDataSource(vesUrl);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void zuOnClick(View view) {
+        if (mediaPlayer != null) mediaPlayer.release();
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        try {
+            mediaPlayer.setDataSource(zuUrl);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void impulseOnClick(View view) {
-        if (prepared) {
-            if (started) {
-                started = false;
-                mediaPlayer.pause();
-                impulse.setText(radioImpulse);
-            } else {
-                started = true;
-                mediaPlayer.start();
-                impulse.setText(radioImpulse + playing);
-            }
+        if (mediaPlayer != null) mediaPlayer.release();
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        try {
+            mediaPlayer.setDataSource(impulseUrl);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    private class PlayTask extends AsyncTask<String, Void, Boolean> {
-        @Override
-        protected Boolean doInBackground(String... strings) {
-            try {
-                mediaPlayer.setDataSource(strings[0]);
-                mediaPlayer.prepare();
-                prepared = true;
-
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            return prepared;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            super.onPostExecute(aBoolean);
-            impulse.setEnabled(true);
-            impulse.setText(radioImpulse);
-            started = false;
+    public void sportOnClick(View view) {
+        if (mediaPlayer != null) mediaPlayer.release();
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        try {
+            mediaPlayer.setDataSource(sportUrl);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
+
+    public void stopOnClick(View view) {
+        mediaPlayer.release();
+    }
+
+
+//    private class PlayTask extends AsyncTask<String, Void, Boolean> {
+//        @Override
+//        protected Boolean doInBackground(String... strings) {
+//            try {
+//                mediaPlayer.setDataSource(strings[0]);
+//                mediaPlayer.prepare();
+//                prepared = true;
+//
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//            return prepared;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Boolean aBoolean) {
+//            super.onPostExecute(aBoolean);
+//            impulse.setEnabled(true);
+//            impulse.setText(radioImpulse);
+//            started = false;
+//        }
+//    }
 
 }
