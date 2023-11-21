@@ -18,21 +18,22 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_gravity="center"
+            android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:src="@drawable/logo"
-                android:scaleType="fitCenter"/>
+                android:scaleType="fitCenter"
+                android:src="@drawable/logo" />
 
             <Button
                 android:id="@+id/vebId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="vebOnClick"/>
+                android:onClick="vebOnClick" />
+
             <Button
                 android:id="@+id/vecId"
                 android:layout_width="wrap_content"
@@ -44,27 +45,32 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="vesOnClick" />
+
             <Button
                 android:id="@+id/zuId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="zuOnClick"/>
+                android:onClick="zuOnClick" />
+
             <Button
                 android:id="@+id/impulseId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="impulseOnClick" />
+
             <Button
                 android:id="@+id/sportId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="sportOnClick"/>
-            <Button
+                android:onClick="sportOnClick" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/stopId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" - - - S T O P - - - "
-                android:onClick="stopOnClick"/>
+                android:src="@drawable/ic_stop"
+                android:onClick="stopOnClick"
+                app:riv_corner_radius="100dp" />
 
         </LinearLayout>
 
@@ -73,8 +79,8 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        android:layout_gravity="start">
+        android:layout_gravity="start"
+        android:background="@color/colorWhite">
 
         <include layout="@layout/nav_drawer" />
 
